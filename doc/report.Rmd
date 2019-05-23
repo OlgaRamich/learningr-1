@@ -1,0 +1,125 @@
+---
+title: "Learning about R Markdown"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+source(here::here("R/package-loading.R"))
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE)
+```
+
+
+#Header 1
+
+##Header 2
+
+###Header 3
+
+####Header 4
+
+
+List:
+
+- **Bold**
+- *Italics*
+
+Numbered List:
+
+1. Item
+2. Item
+3. Item
+1. Item
+
+This other list:
+
+1. Item
+1. Item
+
+
+Super^script^
+
+Sub~script~
+
+> Block quotes
+
+Footnote[^1]
+
+[^1]: This is the footnote.
+
+
+
+<!-- ![The image caption](img/image.jpeg) -->
+
+
+[Link to google](https://google.com)
+
+# Tables
+
+| Column Header | Column Header |
+|:--------------:|:--------------:|
+| Text here | More text |
+| Another row | More text in this row |
+
+
+<!--Comment text -->
+
+
+# Code chunks
+
+```{r scatter-plot-weight-height, fig.height=4, fig.with=5, fig.cap="Scatter plot of weight and height by diabetes"}
+source(here::here("R/package-loading.R"))
+NHANES %>% 
+filter(!is.na(Diabetes)) %>% 
+ggplot(aes(x=Height, y= Weight, colour = Diabetes))+
+geom_point()+
+	scale_colour_viridis_d(end=0.8, option="B")
+```
+
+```{r mean-bmi-table}
+NHANES %>% 
+	select(SurveyYr, BMI, Diabetes) %>% 
+	group_by(SurveyYr, Diabetes) %>% 
+	summarise(MeanBMI=mean(BMI, na.rm=TRUE)) %>% 
+	spread(SurveyYr, MeanBMI) %>% 
+	knitr::kable(caption="Mean BMI by diabetes status over time")
+```
+
+
+Including inline R code `r mean(NHANES$Age, na.rm=TRUE)`.
+
+
+```{r image-logo, out.width="50%", out.height="50%"}					
+knitr::include_graphics(here::here("doc/Dife-logo.png"))
+```
+
+They said: [@Kim2018a]
+
+
+#References:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
